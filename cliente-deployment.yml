@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-cliente
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-cliente
+  template:
+    metadata:
+      labels:
+        app: app-cliente
+    spec:
+      containers:
+        - name: app-cliente
+          image: violentpanda1007/app-cliente
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-cliente-service
+spec:
+  type: ClusterIP
+  selector:
+    app: app-cliente
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
